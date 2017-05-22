@@ -141,7 +141,7 @@ module SpotifyCli
             puts strip_heredoc(doc)
             next if v.empty?
             puts "\nAliases:"
-            v.each { |mapping| puts " - info:#{mapping.first}" }
+            v.each { |mapping| puts " - #{mapping.first}" }
           end
         end
       end
