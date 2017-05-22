@@ -18,7 +18,7 @@ gem 'spotify_cli'
 Changes to the next song
 
 Usage:
-  spotify next
+- `spotify next`
 
 Aliases:
  - n
@@ -27,7 +27,7 @@ Aliases:
 Changes to the previous song
 
 Usage:
-  spotify previous
+- `spotify previous`
 
 Aliases:
  - pr
@@ -36,7 +36,7 @@ Aliases:
 Sets the position in the song
 
 Usage:
-  spotify set_pos 60
+- `spotify set_pos 60`
 
 Aliases:
  - pos
@@ -45,7 +45,7 @@ Aliases:
 Replays the current song
 
 Usage:
-  spotify replay
+- `spotify replay`
 
 Aliases:
  - rep
@@ -55,8 +55,8 @@ Aliases:
 Pause/stop the current song
 
 Usage:
-  spotify pause
-  spotify stop
+- `spotify pause`
+- `spotify stop`
 
 Aliases:
  - stop
@@ -66,10 +66,10 @@ Play/Pause the current song, or play a specified artist,
 track, album, or uri
 
 Usage:
-  spotify play artist [name]
-  spotify play track [name]
-  spotify play album [name]
-  spotify play uri [spotify uri]
+- `spotify play artist [name]`
+- `spotify play track [name]`
+- `spotify play album [name]`
+- `spotify play uri [spotify uri]`
 
 Aliases:
  - play
@@ -79,7 +79,8 @@ Aliases:
 Show the current song
 
 Usage:
-  spotify status
+- `spotify`
+- `spotify status`
 
 Aliases:
  - s
@@ -88,8 +89,7 @@ Aliases:
 Display Help
 
 Usage:
- spotify
- spotify help
+- `spotify help`
 
 ## Development
 
