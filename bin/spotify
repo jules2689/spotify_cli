@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'spotify_cli'
+
+SpotifyCli.call(ARGV)  
