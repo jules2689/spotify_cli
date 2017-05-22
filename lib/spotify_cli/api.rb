@@ -108,6 +108,7 @@ module SpotifyCli
       Show the current song
 
       {{bold:Usage:}}
+        {{command:spotify}}
         {{command:spotify status}}
       EOF
       def status
@@ -140,7 +141,6 @@ module SpotifyCli
       Display Help
 
       {{bold:Usage:}}
-       {{command:spotify}}
        {{command:spotify help}}
       EOF
       def help(mappings)
