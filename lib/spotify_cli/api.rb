@@ -1,68 +1,56 @@
 require 'spotify_cli/app'
-require 'helpers/doc'
 
 module SpotifyCli
   class Api
     PLAY = "▶"
     STOP = "◼"
-
     SPOTIFY_SEARCH_API = "https://api.spotify.com/v1/search"
 
     class << self
-      doc <<-EOF
-      Changes to the next song
-
-      {{bold:Usage:}}
-        {{command:spotify next}}
-      EOF
+      # Changes to the next song
+      #
+      # Usage:
+      #   - spotify next
       def next
         puts "Playing next song"
         SpotifyCli::App.next!
       end
 
-      doc <<-EOF
-      Changes to the previous song
-
-      {{bold:Usage:}}
-        {{command:spotify previous}}
-      EOF
+      # Changes to the previous song
+      #
+      # Usage:
+      #   - spotify previous
       def previous
         puts "Playing previous song"
         SpotifyCli::App.prev!
       end
 
-      doc <<-EOF
-      Sets the position in the song
-
-      {{bold:Usage:}}
-        {{command:spotify set_pos 60}}
-      EOF
+      # Sets the position in the song
+      #
+      # Usage:
+      #   - spotify set_pos 60
       def set_pos
         puts "Setting position to #{ARGV[1]}"
         SpotifyCli::App.set_pos!(ARGV[1])
       end
 
-      doc <<-EOF
-      Replays the current song
-
-      {{bold:Usage:}}
-        {{command:spotify replay}}
-      EOF
+      # Replays the current song
+      #
+      # Usage:
+      #   - spotify replay
       def replay
         puts "Restarting song"
         SpotifyCli::App.replay!
       end
       
-      doc <<-EOF
-      Play/Pause the current song, or play a specified artist,
-      track, album, or uri
-      
-      {{bold:Usage:}}
-        {{command:spotify play artist [name]}}
-        {{command:spotify play track [name]}}
-        {{command:spotify play album [name]}}
-        {{command:spotify play uri [spotify uri]}}
-      EOF
+      # Play/Pause the current song, or play a specified artist,
+      # track, album, or uri
+      #
+      # Usage:
+      #   - spotify play artist [name]
+      #   - spotify play track [name]
+      #   - spotify play album [name]
+      #   - spotify play uri [spotify uri]
       def play_pause
         args = ARGV[1..-1]
 
@@ -92,25 +80,21 @@ module SpotifyCli
         status
       end
 
-      doc <<-EOF
-      Pause/stop the current song
-
-      {{bold:Usage:}}
-        {{command:spotify pause}}
-        {{command:spotify stop}}
-      EOF
+      # Pause/stop the current song
+      #
+      # Usage:
+      #   - spotify pause
+      #   - spotify stop
       def pause
         SpotifyCli::App.pause!
         status
       end
 
-      doc <<-EOF
-      Show the current song
-
-      {{bold:Usage:}}
-        {{command:spotify}}
-        {{command:spotify status}}
-      EOF
+      # Show the current song
+      #
+      # Usage:
+      #   - spotify
+      #   - spotify status
       def status
         stat = SpotifyCli::App.status
 
@@ -137,26 +121,27 @@ module SpotifyCli
         end
       end
 
-      doc <<-EOF
-      Display Help
-
-      {{bold:Usage:}}
-       {{command:spotify help}}
-      EOF
+      # Display Help
+      #
+      # Usage:
+      #  - spotify help
       def help(mappings)
+        require 'method_source'
+
         Dex::UI.frame('Spotify CLI', timing: false) do
           puts "CLI interface for Spotify"
         end
 
         mappings.group_by { |_,v| v }.each do |k, v|
           v.reject! { |mapping| mapping.first == k.to_s }
-          doc = get_doc(self.class, k.to_s).strip_heredoc
+          doc = self.method(k).comment.gsub(/^#\s*/, '')
+          doc = strip_heredoc(doc)
 
           Dex::UI.frame(k, timing: false) do
-            puts puts Dex::UI.resolve_text(doc)
+            puts strip_heredoc(doc)
             next if v.empty?
-            puts Dex::UI.resolve_text("{{bold:Aliases:}}")
-            v.each { |mapping| puts Dex::UI.resolve_text(" - {{info:#{mapping.first}}}") }
+            puts "\nAliases:"
+            v.each { |mapping| puts " - info:#{mapping.first}" }
           end
         end
       end
@@ -176,6 +161,20 @@ module SpotifyCli
         EOF
 
         `#{curl_cmd}`.strip.split("\n")
+      end
+
+      # The following methods is taken from activesupport
+      #
+      # https://github.com/rails/rails/blob/d66e7835bea9505f7003e5038aa19b6ea95ceea1/activesupport/lib/active_support/core_ext/string/strip.rb
+      #
+      # All credit for this method goes to the original authors.
+      # The code is used under the MIT license.
+      #
+      # Strips indentation by removing the amount of leading whitespace in the least indented
+      # non-empty line in the whole string
+      #
+      def strip_heredoc(str)
+        str.gsub(/^#{str.scan(/^[ \t]*(?=\S)/).min}/, "".freeze)
       end
     end
   end

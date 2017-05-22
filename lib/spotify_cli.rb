@@ -3,6 +3,11 @@ require 'dex/ui'
 require 'spotify_cli/api'
 
 module SpotifyCli
+  # CLI interface for the application
+  # Converts arguments to a mapped command and executes the command
+  #
+  # @param args [Array] CLI arugments
+  #
   def self.call(args)
     mappings = {
       'next' => :next,
