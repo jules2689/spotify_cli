@@ -2,6 +2,8 @@
 
 Spotify Application wrapper for control via command line
 
+![CLI Image](https://cloud.githubusercontent.com/assets/3074765/26330022/05ee8a14-3f18-11e7-9ea6-555940bf3182.png)
+
 ## Installation
 
 Add this line to your application's Gemfile:
