@@ -26,6 +26,8 @@ module SpotifyCli
       'play_pause' => :play_pause,
       'status' => :status,
       's' => :status,
+      'watch' => :watch,
+      'w' => :watch,
       'help' => :help
     }
 

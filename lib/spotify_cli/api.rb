@@ -108,6 +108,8 @@ module SpotifyCli
         # 3 for padding around time, and symbol, and space for the symbol, 2 for frame
         width = Dex::UI::Terminal.width - time.size - 5
 
+        yield if block_given?
+
         Dex::UI.frame(stat[:track], timing: false) do
           puts Dex::UI.resolve_text([
             "{{bold:Artist:}} #{stat[:artist]}",
@@ -118,6 +120,25 @@ module SpotifyCli
             state_sym,
             time
           ].join(' ')
+        end
+      end
+
+      # Watch and report the status the current song
+      #
+      # Usage:
+      #   - spotify watch
+      def watch
+        printed = false
+        while true
+          status do
+            if printed
+              up = "\x1b[1A\x1b[1G"
+              clear = "\x1b[2K\x1b[1G"
+              5.times { print [up, clear].join }
+            end
+            printed = true
+          end
+          sleep 1
         end
       end
 

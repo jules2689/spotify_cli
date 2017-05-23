@@ -85,6 +85,15 @@ Usage:
 Aliases:
  - s
 
+#### status
+Watch the status of the current song
+
+Usage:
+- `spotify watch`
+
+Aliases:
+- w
+
 #### help
 Display Help
 
